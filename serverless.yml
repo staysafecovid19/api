@@ -19,11 +19,12 @@ provider:
 package:
   exclude:
     - node_modules/**
-    - '!node_modules/node-fetch/**'
+    - "!node_modules/node-fetch/**"
 plugins:
   - serverless-offline
   - serverless-plugin-include-dependencies
 functions:
+  # AUTH
   auth-login:
     handler: src/controllers/auth.login
     events:
@@ -38,8 +39,27 @@ functions:
           path: auth/refresh
           method: post
           cors: true
-
-
+  auth-signup:
+    handler: src/controllers/auth.signup
+    events:
+      - http:
+          path: auth/signup
+          method: post
+          cors: true
+  auth-confirm-registration:
+    handler: src/controllers/auth.confirmRegistration
+    events:
+      - http:
+          path: auth/confirm-registration
+          method: post
+          cors: true
+  auth-resend-confirmation-code:
+    handler: src/controllers/auth.resendConfirmationCode
+    events:
+      - http:
+          path: auth/resend-confirmation-code
+          method: post
+          cors: true
   # # PROFILE
   # profile-get:
   #   handler: src/controllers/profile.get
