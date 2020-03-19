@@ -1,0 +1,11 @@
+{
+  "PROFILE_AWS": "",
+  "REGION_AWS": "",
+  "DB_HOST": "",
+  "DB_DATABASE": "",
+  "DB_USER": "",
+  "DB_PASSWORD": "",
+  "DB_PORT": "",
+  "AWS_USER_POOL_ID": "",
+  "AWS_CLIENT_ID": ""
+}

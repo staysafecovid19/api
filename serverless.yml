@@ -1,0 +1,53 @@
+service: staysafecovid19-api
+# frameworkVersion: =1.31.0
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: ${file(./config.${self:provider.stage}.json):REGION_AWS}
+  stackName: ${self:service}
+  apiName: ${self:service}
+  profile: ${file(./config.${self:provider.stage}.json):PROFILE_AWS}
+  timeout: 6
+  environment:
+    DB_HOST: ${file(./config.${self:provider.stage}.json):DB_HOST}
+    DB_DATABASE: ${file(./config.${self:provider.stage}.json):DB_DATABASE}
+    DB_PASSWORD: ${file(./config.${self:provider.stage}.json):DB_PASSWORD}
+    DB_PORT: ${file(./config.${self:provider.stage}.json):DB_PORT}
+    AWS_USER_POOL_ID: ${file(./config.${self:provider.stage}.json):AWS_USER_POOL_ID}
+    AWS_CLIENT_ID: ${file(./config.${self:provider.stage}.json):AWS_CLIENT_ID}
+package:
+  exclude:
+    - node_modules/**
+    - '!node_modules/node-fetch/**'
+plugins:
+  - serverless-offline
+  - serverless-plugin-include-dependencies
+functions:
+  auth-login:
+    handler: src/controllers/auth.login
+    events:
+      - http:
+          path: auth
+          method: post
+          cors: true
+  auth-refresh:
+    handler: src/controllers/auth.refreshToken
+    events:
+      - http:
+          path: auth/refresh
+          method: post
+          cors: true
+
+
+  # # PROFILE
+  # profile-get:
+  #   handler: src/controllers/profile.get
+  #   events:
+  #     - http:
+  #         integration: lambda-proxy
+  #         path: profile
+  #         method: get
+  #         cors: true
+  #         authorizer: # An AWS API Gateway custom authorizer function
+  #           arn: arn:aws:cognito--
