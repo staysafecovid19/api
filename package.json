@@ -24,7 +24,7 @@
     "@hapi/joi": "^16.1.7",
     "amazon-cognito-identity-js": "^3.1.0",
     "joi": "^14.3.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "ramda": "^0.26.1",
